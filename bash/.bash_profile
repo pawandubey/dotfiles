@@ -1,0 +1,13 @@
+if [ -f ~/.bashrc ]; then . ~/.bashrc; fi 
+# source /usr/local/opt/chruby/share/chruby/chruby.sh
+# source /usr/local/share/chruby/auto.sh
+# source ~/.rvm/scripts/extras/chruby.sh
+source ~/.profile
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+if [[ -f /opt/dev/dev.sh ]]; then source /opt/dev/dev.sh; fi
+
+source ~/.git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
