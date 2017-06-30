@@ -135,13 +135,11 @@ function gitps1() {
 
 function ruby_version() {
     if [ $RUBY_VERSION ] ; then
-        echo : [$RUBY_VERSION] :
-    else
-        echo : [?] :
+        echo " : [$RUBY_VERSION] :"
     fi
 }
 
-export PS1=`echo -e "\$(bold \$(green_background_white_foreground ' \u ')) \$(green_foreground '\$(ruby_version)') \$(purple_bold_foreground ['\W']) \$(gitprompt \$(italic \$(gitps1)))\n\$(green_foreground ★ 𝞴) "`
+export PS1=`echo -e "\$(bold \$(green_background_white_foreground ' \u '))\$(green_foreground '\$(ruby_version)') \$(purple_bold_foreground ['\W']) \$(gitprompt \$(italic \$(gitps1)))\n\$(green_foreground ★ 𝞴) "`
 
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
