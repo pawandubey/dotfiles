@@ -150,6 +150,7 @@ bind TAB:menu-complete
 bind "set show-all-if-ambiguous on"
 
 source /usr/local/etc/bash_completion.d/pass
+source ~/git-completion.bash
 
 # load dev, but only if present and the shell is interactive
 if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
