@@ -156,6 +156,16 @@ source ~/git-completion.bash
 if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
   source /opt/dev/dev.sh
 fi
+
+if [[ -f ~/.local/share/icons-in-terminal/icons_bash.sh ]]; then
+  source ~/.local/share/icons-in-terminal/icons_bash.sh
+fi
+
+if [[ -f ~/.bash_functions ]]; then
+  source ~/.bash_functions
+fi
+
+export PROJECTS_DIR=~/src/github.com/pawandubey/
 export DISPLAY=:0
 export TERM=xterm-256color
 
