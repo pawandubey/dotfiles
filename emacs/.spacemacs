@@ -45,6 +45,7 @@ values."
      ;; better-defaults
      emacs-lisp
      git
+     github
      markdown
      ruby
      org
@@ -59,7 +60,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(crystal-mode)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -138,7 +139,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 15
+                               :size 18
                                :weight normal
                                :width normal
                                :powerline-scale 1.2)
@@ -320,6 +321,18 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (with-eval-after-load 'org
+    (setq org-directory "~/src/github.com/pawandubey/notes")
+    (setq org-default-notes-file "~/src/github.com/pawandubey/notes/refile.org")
+    (setq org-agenda-files (quote ("~/src/github.com/pawandubey/notes")))
+    (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+    (setq org-capture-templates
+          '(("t" "Todo" entry (file+headline 'org-default-notes-file "Tasks")
+             "* TODO %?\nCaptured on %t\n%i\n%a" :empty-lines 1)
+            ("n" "Note" entry (file+headline 'org-default-notes-file "Ideas")
+             "* %?\nMade on %U\n%i\n%a" :empty-lines 1)))
+    (setq org-enable-github-support t))
+
   (setq ns-use-srgb-colorspace nil)
   (setq powerline-default-separator 'arrow)
   (golden-ratio-mode 1)
