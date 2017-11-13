@@ -11,3 +11,6 @@ if [[ -f /opt/dev/dev.sh ]]; then source /opt/dev/dev.sh; fi
 source ~/.git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
+
+# OPAM configuration
+. /home/pawan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
