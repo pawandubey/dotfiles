@@ -48,6 +48,7 @@ values."
      github
      markdown
      ruby
+     ocaml
      org
      ;; (shell :variables
      ;;        shell-default-height 30
