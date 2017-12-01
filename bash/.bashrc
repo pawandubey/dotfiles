@@ -170,3 +170,4 @@ export DISPLAY=:0
 export TERM=xterm-256color
 export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 export ECLIPSE_HOME=/home/pawan/.local/share/umake/ide/eclipse
+export PATH=/home/pawan/griffin/bin:$PATH

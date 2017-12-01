@@ -46,6 +46,7 @@ values."
      emacs-lisp
      git
      github
+     java
      markdown
      ruby
      ocaml
@@ -337,7 +338,19 @@ you should place your code here."
   (setq ns-use-srgb-colorspace nil)
   (setq powerline-default-separator 'arrow)
   (golden-ratio-mode 1)
-  (setq ruby-insert-encoding-magic-comment nil))
+
+  (with-eval-after-load 'ruby
+    (setq ruby-insert-encoding-magic-comment nil))
+
+  (setq eclim-eclipse-dirs '("/home/pawan/.local/share/umake/ide/eclipse"))
+  (setq eclim-executable "/home/pawan/.local/share/umake/ide/eclipse/eclim")
+  (setq eclimd-wait-for-process t)
+
+  (with-eval-after-load 'java
+    (setq eclim--project-name (eclim-project-name)))
+
+  (with-eval-after-load 'tuareg
+    (setq tuareg-prettify-symbols-full t)))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
