@@ -353,8 +353,7 @@ you should place your code here."
   (with-eval-after-load 'tuareg
     (setq tuareg-prettify-symbols-full t))
 
-  (with-eval-after-load 'clojure-mode
-    (setq clojure-enable-fancify-symbols t)))
+  (setq clojure-enable-fancify-symbols t))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
