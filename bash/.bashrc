@@ -149,7 +149,12 @@ export PS1=`echo -e "\$(bold \$(green_background_white_foreground ' \u '))\$(gre
 bind TAB:menu-complete
 bind "set show-all-if-ambiguous on"
 
-source /usr/share/bash-completion/completions/pass
+if [[ -f /user/share/bash-completion/completions/pass ]]; then
+  source /usr/share/bash-completion/completions/pass
+elif [[ -f /usr/local/etc/bash_completion.d/pass ]]; then
+  source /usr/local/etc/bash_completion.d/pass
+fi
+
 source ~/git-completion.bash
 
 # load dev, but only if present and the shell is interactive
@@ -169,5 +174,5 @@ export PROJECTS_DIR=~/src/github.com/pawandubey/
 export DISPLAY=:0
 export TERM=xterm-256color
 export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
-export ECLIPSE_HOME=/home/pawan/.local/share/umake/ide/eclipse
-export PATH=/home/pawan/griffin/bin:$PATH
+export ECLIPSE_HOME=~/.local/share/umake/ide/eclipse
+export PATH=~/griffin/bin:$PATH
