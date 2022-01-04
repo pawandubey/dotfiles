@@ -13,4 +13,10 @@ GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 
 # OPAM configuration
+
 . /home/pawan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+if [ -e /Users/pawandubey/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/pawandubey/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+source "$HOME/.cargo/env"
+
+alias jt="$(which ruby) /Users/pawandubey/src/github.com/Shopify/truffleruby-ws/truffleruby/tool/jt.rb"
+

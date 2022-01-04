@@ -30,11 +30,20 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(protobuf
+     lsp
+     rust
+     nginx
+     react
+     lua
+     csv
+     (go :variables go-backend 'lsp)
+     typescript
      javascript
      html
      yaml
      sql
+     docker
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -46,24 +55,32 @@ values."
      emacs-lisp
      git
      github
+     graphql
      java
      markdown
      ruby
      ocaml
      org
      clojure
+     typescript
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
+     auto-completion
+     syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(crystal-mode)
+   dotspacemacs-additional-packages '(
+                                      crystal-mode
+                                      yasnippet-snippets
+                                      highlight2clipboard
+                                      (dev :location (recipe :fetcher file :path "/Users/pawandubey/src/github.com/Shopify/dev.el/dev.el"))
+                                      (spin :location (recipe :fetcher file :path "/Users/pawandubey/src/github.com/Shopify/spin.el/spin.el")))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -142,7 +159,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 18
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.2)
@@ -268,13 +285,12 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative nil
-                               :disabled-for-modes dired-mode
-                                                   doc-view-mode
-                                                   markdown-mode
-                                                   org-mode
-                                                   pdf-view-mode
-                                                   text-mode)
+   dotspacemacs-line-numbers nil ;; '(:relative nil
+                             ;;   :disabled-for-modes dired-mode
+                             ;;                       doc-view-mode
+                             ;;                       markdown-mode
+                             ;;                       pdf-view-mode
+                             ;;                       text-mode)
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -306,6 +322,7 @@ values."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup 'trailing
+   dotspacemacs-mode-line-theme '(spacemacs :separator arrow)
    ))
 
 (defun dotspacemacs/user-init ()
@@ -337,8 +354,8 @@ you should place your code here."
     (setq org-enable-github-support t))
 
   (setq ns-use-srgb-colorspace nil)
-  (setq powerline-default-separator 'arrow)
   (golden-ratio-mode 1)
+  (setq frame-title-format nil)
 
   (with-eval-after-load 'ruby
     (setq ruby-insert-encoding-magic-comment nil))
@@ -353,7 +370,26 @@ you should place your code here."
   (with-eval-after-load 'tuareg
     (setq tuareg-prettify-symbols-full t))
 
-  (setq clojure-enable-fancify-symbols t))
+  (setq clojure-enable-fancify-symbols t)
+
+  (setq json-indent-level 2)
+
+  (with-eval-after-load 'magit
+    (remove-hook 'magit-status-headers-hook 'magit-insert-tags-header)
+    )
+
+  (defun formatted-copy ()
+    "Export region to HTML, and copy it to the clipboard."
+    (interactive)
+    (shell-command-on-region
+     (point-min)
+     (point-max)
+     "highlight -O rtf -k 'Source Code Pro' --syntax ruby -s molokai | pbcopy"))
+  (setq tramp-default-method "ssh")
+  (setq tramp-verbose 10)
+
+  (setq web-mode-markup-indent-offset 2)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -365,11 +401,40 @@ you should place your code here."
  '(fill-column 120)
  '(golden-ratio-mode t)
  '(package-selected-packages
-   (quote
-    (web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yaml-mode sql-indent org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake orgit mmm-mode minitest markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy evil-magit magit magit-popup git-commit with-editor company-statistics company chruby bundler inf-ruby auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+   '(tide typescript-mode flycheck yasnippet-snippets utop tuareg caml org-category-capture org-mime ocp-indent merlin magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht evil-unimpaired ghub let-alist crystal-mode company-emacs-eclim eclim clojure-snippets clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider seq queue clojure-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yaml-mode sql-indent org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake orgit mmm-mode minitest markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy evil-magit magit magit-popup git-commit with-editor company-statistics company chruby bundler inf-ruby auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
+ '(ruby-insert-encoding-magic-comment nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(css-indent-offset 2)
+ '(evil-want-Y-yank-to-eol nil)
+ '(fill-column 120)
+ '(golden-ratio-mode t)
+ '(js-indent-level 2)
+ '(json-reformat:indent-width 2)
+ '(magit-refresh-verbose t)
+ '(package-selected-packages
+   '(ox-gfm dockerfile-mode docker tablist docker-tramp tide typescript-mode flycheck yasnippet-snippets utop tuareg caml org-category-capture org-mime ocp-indent merlin magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht evil-unimpaired ghub let-alist crystal-mode company-emacs-eclim eclim clojure-snippets clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider seq queue clojure-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yaml-mode sql-indent org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake orgit mmm-mode minitest markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy evil-magit magit magit-popup git-commit with-editor company-statistics company chruby bundler inf-ruby auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
+ '(ruby-insert-encoding-magic-comment nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)

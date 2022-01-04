@@ -171,8 +171,21 @@ if [[ -f ~/.bash_functions ]]; then
 fi
 
 export PROJECTS_DIR=~/src/github.com/pawandubey/
+export SHOPIFY_DIR=~/src/github.com/Shopify/
 export DISPLAY=:0
 export TERM=xterm-256color
-export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home)
+else
+    export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+fi
 export ECLIPSE_HOME=~/.local/share/umake/ide/eclipse
-export PATH=~/griffin/bin:$PATH
+export GOPATH=~/go
+PATH=~/griffin/bin:$GOPATH/bin:$PATH
+source "$HOME/.cargo/env"
+# cloudplatform: add Shopify clusters to your local kubernetes config
+export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/pawandubey/.kube/config:/Users/pawandubey/.kube/config.shopify.cloudplatform
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+
+[[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
