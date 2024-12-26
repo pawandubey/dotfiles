@@ -123,7 +123,7 @@ underline()                            { ansi 4 "$@"; }
 strikethrough()                        { ansi 9 "$@"; }
 gitprompt()                            { ansi "38;5;069" "$@"; }
 green_foreground()                     { ansi "38;5;036" "$@"; }
-green_background_white_foreground()    { ansi "48;5;036;38" "$@"; }
+green_background_white_foreground()    { ansi "48;5;036;38;5;231" "$@"; }
 purple_bold_foreground()               { ansi "35;1" "$@"; }
 ansi()                                 { echo "\[\e[${1}m\]${*:2}\[\e[0m\]"; }
 
