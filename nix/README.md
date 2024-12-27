@@ -11,7 +11,7 @@ Mostly based on https://tech.aufomm.com/my-nix-journey-use-nix-with-ubuntu/
 ## Setup
 
 - Inside of this repo, run `nix run nixpkgs#home-manager -- switch --flake nix/#pawan`
-- Afterwards run `home-manager switch --flake nix/#pawan` (replace `nix/` with the relative path to the folder containing the `flake.nix` file if necessary.
+- Afterwards run `home-manager switch --flake nix/#pawan` (replace `nix/` with the relative path to the folder containing the `flake.nix` file if necessary. `hms` is also available as an alias.
 
 ## Notes and gotchas
 
@@ -20,4 +20,5 @@ Mostly based on https://tech.aufomm.com/my-nix-journey-use-nix-with-ubuntu/
 - Nix will ignore any files not added to git, so if a new file is created it will need to be added to the staging area for it to be picked up
 - Symlinking with home.file creates the symlinks in the nix store by default, which makes it slightly inconvenient to modify configs as it requires a home-manager switch every time. It can be remediated with `mkOutOfStoreSymlink` to create direct symlinks. Maybe something to consider if it becomes too annoying to deal with.
 - nixGL is required to wrap any desktop apps. Use the example from wezterm that uses `config.lib.nixGL.wrap`
+- Sometimes, switch will report that systemd services are degraded, this can be verified with `systemctl --user is-system-running`. And degraded services can be reset with `systemctl --user reset-failed`. See https://github.com/nix-community/home-manager/issues/909.
 
