@@ -98,6 +98,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
+alias hms="home-manager switch --flake /home/pawan/src/github.com/pawandubey/dotfiles/nix/#pawan"
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -123,7 +125,7 @@ underline()                            { ansi 4 "$@"; }
 strikethrough()                        { ansi 9 "$@"; }
 gitprompt()                            { ansi "38;5;069" "$@"; }
 green_foreground()                     { ansi "38;5;036" "$@"; }
-green_background_white_foreground()    { ansi "48;5;036;38" "$@"; }
+green_background_white_foreground()    { ansi "48;5;036;38;5;231" "$@"; }
 purple_bold_foreground()               { ansi "35;1" "$@"; }
 ansi()                                 { echo "\[\e[${1}m\]${*:2}\[\e[0m\]"; }
 
