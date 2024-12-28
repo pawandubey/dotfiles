@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     lsp
      javascript
      html
      yaml
@@ -49,10 +50,12 @@ values."
      java
      markdown
      ruby
-     ocaml
+     ;; ocaml
      org
      clojure
      nixos
+     rust
+     toml
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -269,13 +272,13 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative nil
-                                         :disabled-for-modes dired-mode
-                                         doc-view-mode
-                                         markdown-mode
-                                         org-mode
-                                         pdf-view-mode
-                                         text-mode)
+   dotspacemacs-line-numbers nil ;; '(:relative nil
+   ;;         :disabled-for-modes dired-mode
+   ;;         doc-view-mode
+   ;;         markdown-mode
+   ;;         org-mode
+   ;;         pdf-view-mode
+   ;;         text-mode)
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -354,7 +357,16 @@ you should place your code here."
   (with-eval-after-load 'tuareg
     (setq tuareg-prettify-symbols-full t))
 
-  (setq clojure-enable-fancify-symbols t))
+  (setq clojure-enable-fancify-symbols t)
+
+  (with-eval-after-load 'magit
+    (remove-hook 'magit-status-headers-hook 'magit-insert-tags-header)
+    )
+
+  (setq tramp-default-method "ssh")
+  (setq tramp-verbose 10)
+
+  (setq web-mode-markup-indent-offset 2))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
