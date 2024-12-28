@@ -15,7 +15,8 @@
     pass
     wl-clipboard
     emacs
-    source-code-pro
+    # source-code-pro
+    nerd-fonts.sauce-code-pro
     rustup
     gcc
   ];

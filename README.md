@@ -19,4 +19,8 @@ This is an alternate, home-manager based approach. It will also install packages
 
 See instructions in the [directory](./nix).
 
+## Additional settings
+
+- Need to install the correct font and also call `M-x all-the-icons-install-fonts` in emacs to get all the fonts e.g. for LSP headerline working.
+
 
