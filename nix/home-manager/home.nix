@@ -16,6 +16,8 @@
     wl-clipboard
     emacs
     source-code-pro
+    rustup
+    gcc
   ];
   programs.home-manager.enable = true;
 
