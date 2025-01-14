@@ -1,6 +1,8 @@
 { config, pkgs, nixgl, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   home.username = "pawan";
   home.homeDirectory = "/home/pawan";
   home.stateVersion = "24.11";
@@ -14,11 +16,16 @@
   home.packages = with pkgs; [
     pass
     wl-clipboard
-    emacs
+    emacs29-pgtk
     # source-code-pro
     nerd-fonts.sauce-code-pro
     rustup
     gcc
+    uv
+    calibre
+    makemkv
+    (pkgs.vlc.override { libbluray = pkgs.libbluray.override { withAACS = true; withBDplus = true; }; })
+    handbrake
   ];
   programs.home-manager.enable = true;
 
