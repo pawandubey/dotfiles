@@ -172,6 +172,10 @@ if [[ -f ~/.bash_functions ]]; then
   source ~/.bash_functions
 fi
 
+if command -v mise; then
+  eval "$(mise activate bash)"
+fi
+
 export PROJECTS_DIR=~/src/github.com/pawandubey/
 export DISPLAY=:0
 export TERM=xterm-256color

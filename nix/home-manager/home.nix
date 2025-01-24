@@ -24,10 +24,22 @@
     uv
     calibre
     makemkv
+    powertop
     (pkgs.vlc.override { libbluray = pkgs.libbluray.override { withAACS = true; withBDplus = true; }; })
     handbrake
+    mise
+    sipcalc
   ];
   programs.home-manager.enable = true;
+
+  programs.vscode = {
+    enable = false; # https://github.com/NixOS/nixpkgs/issues/89599
+    extensions = with pkgs.vscode-extensions; [
+      ms-vsliveshare.vsliveshare
+      golang.go
+      shopify.ruby-lsp
+    ];
+  };
 
   fonts.fontconfig.enable = true; # needed to refresh fc-cache after installing font packages like source-code-pro
 
