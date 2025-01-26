@@ -172,7 +172,7 @@ if [[ -f ~/.bash_functions ]]; then
   source ~/.bash_functions
 fi
 
-if command -v mise; then
+if command -v mise > /dev/null; then
   eval "$(mise activate bash)"
 fi
 
