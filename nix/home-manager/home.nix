@@ -20,7 +20,6 @@
     # source-code-pro
     nerd-fonts.sauce-code-pro
     rustup
-    gcc
     uv
     calibre
     makemkv
@@ -29,6 +28,7 @@
     handbrake
     mise
     sipcalc
+    sqlite
   ];
   programs.home-manager.enable = true;
 
