@@ -19,6 +19,7 @@
     emacs29-pgtk
     # source-code-pro
     nerd-fonts.sauce-code-pro
+    jost
     rustup
     uv
     calibre
@@ -29,6 +30,7 @@
     mise
     sipcalc
     sqlite
+    nodejs_23
   ];
   programs.home-manager.enable = true;
 
