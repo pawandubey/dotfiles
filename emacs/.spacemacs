@@ -47,6 +47,7 @@ values."
      emacs-lisp
      git
      github
+     go
      java
      markdown
      ruby
@@ -56,6 +57,7 @@ values."
      nixos
      rust
      toml
+     docker
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)

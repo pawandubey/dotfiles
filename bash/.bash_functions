@@ -17,10 +17,19 @@ function dotfiles() {
 }
 
 function prj() {
-  projects
-  if [[ -d "$1" ]]; then
-    cd "$1"
+  if [[ $# -gt 0 ]]; then
+    if [[ -d "$1" ]]; then
+      projects
+      cd "$1"
+    else
+      errecho "ERROR: $1 no such directory"
+    fi
   else
-    errecho "ERROR: $1 no such directory."
+    if command -v sk > /dev/null; then
+       dest="$(find $PROJECTS_DIR -maxdepth 3 -type d | sk)"
+       cd "$dest"
+    else
+      errecho "ERROR: skim is not installed"
+    fi
   fi
 }

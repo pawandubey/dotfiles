@@ -29,6 +29,7 @@
     handbrake
     mise
     sipcalc
+    skim
     sqlite
     nodejs_23
   ];

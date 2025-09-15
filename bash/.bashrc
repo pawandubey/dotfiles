@@ -178,7 +178,7 @@ elif [[ -f ~/.local/bin/mise ]]; then
   eval "$(~/.local/bin/mise activate bash)"
 fi
 
-export PROJECTS_DIR=~/src/github.com/pawandubey/
+export PROJECTS_DIR=~/src
 export DISPLAY=:0
 export TERM=xterm-256color
 export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
