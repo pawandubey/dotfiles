@@ -22,7 +22,6 @@
     jost
     rustup
     uv
-    calibre
     makemkv
     powertop
     (pkgs.vlc.override { libbluray = pkgs.libbluray.override { withAACS = true; withBDplus = true; }; })
