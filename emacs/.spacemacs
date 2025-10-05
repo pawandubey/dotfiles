@@ -368,6 +368,10 @@ you should place your code here."
   (setq tramp-default-method "ssh")
   (setq tramp-verbose 10)
 
+  (add-to-list 'exec-path "~/.local/share/mise/shims/")
+
+  (setq lsp-disabled-clients '((ruby-mode . rubocop-ls)))
+
   (setq web-mode-markup-indent-offset 2))
 
 ;; Do not write anything past this comment. This is where Emacs will

@@ -22,6 +22,7 @@
     jost
     rustup
     uv
+    iperf3
     makemkv
     powertop
     (pkgs.vlc.override { libbluray = pkgs.libbluray.override { withAACS = true; withBDplus = true; }; })
