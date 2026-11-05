@@ -7,16 +7,20 @@
   home.homeDirectory = "/home/pawan";
   home.stateVersion = "24.11";
 
-  nixGL.packages = nixgl.packages;
-  nixGL.defaultWrapper = "mesa";
-  nixGL.installScripts = [
-    "mesa"
-  ];
+  targets.genericLinux.enable = true;
+
+  # targets.genericLinux.nixGL = {
+  #   packages = nixgl.packages;
+  #   defaultWrapper = "mesa";
+  #   installScripts = [
+  #     "mesa"
+  #   ];
+  # };
 
   home.packages = with pkgs; [
     pass
     wl-clipboard
-    emacs29-pgtk
+    emacs-pgtk
     # source-code-pro
     nerd-fonts.sauce-code-pro
     jost
@@ -25,23 +29,25 @@
     iperf3
     makemkv
     powertop
-    (pkgs.vlc.override { libbluray = pkgs.libbluray.override { withAACS = true; withBDplus = true; }; })
+    # (pkgs.vlc.override { libbluray = pkgs.libbluray.override { withAACS = true; withBDplus = true; }; })
     handbrake
     mise
     sipcalc
     skim
     sqlite
-    nodejs_23
+    nodejs_latest
+    ripgrep
+    gh
   ];
   programs.home-manager.enable = true;
 
   programs.vscode = {
     enable = false; # https://github.com/NixOS/nixpkgs/issues/89599
-    extensions = with pkgs.vscode-extensions; [
-      ms-vsliveshare.vsliveshare
-      golang.go
-      shopify.ruby-lsp
-    ];
+    # extensions = with pkgs.vscode-extensions; [
+    #   ms-vsliveshare.vsliveshare
+    #   golang.go
+    #   shopify.ruby-lsp
+    # ];
   };
 
   fonts.fontconfig.enable = true; # needed to refresh fc-cache after installing font packages like source-code-pro
@@ -118,10 +124,11 @@
       source = pkgs.fetchFromGitHub {
         owner = "syl20bnr";
         repo = "spacemacs";
-        rev = "abba23b614ab12c69b01d8db364f493155e08d4a";
-        hash = "sha256-e1pyS2T6nBelwHwQLEk4wzZ7NUm8FI2rAWLZuuBAijc=";
+        rev = "cc8ff4c0c26e577b48b94c4440a85eb4af3cdf38";
+        hash = "sha256-fooohHaRYKPTO664Eipl8L3phImjw98JJ4eDEXA3jUo="; # replace with pkgs.lib.fakeHash to output expected hash;
       };
       recursive = true;
+      force = true;
     };
 
     ".spacemacs" = {
